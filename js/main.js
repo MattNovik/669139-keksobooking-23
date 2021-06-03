@@ -1,4 +1,4 @@
-let range = (min,max) => {
+const range = (min,max) => {
   if (min < 0) {
     return 'too small min';
   } else if (min > max) {
