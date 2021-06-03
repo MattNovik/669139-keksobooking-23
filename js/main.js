@@ -1,9 +1,9 @@
-const range = (min,max) => {
+const range = (min, max) => {
   if (min < 0) {
-    return 'too small min';
+    return "too small min";
   } else if (min > max) {
-    return 'wrong numbers min more than max, try again';
+    return "wrong numbers min more than max, try again";
   }
-  let number  = min + Math.random() * (max + 1 - min);
+  let number = min + Math.random() * (max + 1 - min);
   return Math.floor(number);
-}
+};
