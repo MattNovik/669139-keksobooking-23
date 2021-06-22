@@ -1,7 +1,6 @@
 import {getRange} from './getRandomNumb.js';
 
-const getRandomArrayElement = (elements) => {
-  return elements[getRange(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) =>
+  elements[getRange(0, elements.length - 1)];
 
-export {getRandomArrayElement}
+export {getRandomArrayElement};
