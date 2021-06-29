@@ -1,3 +1,6 @@
-import { getData } from "./createData.js";
+import { getData } from "./data.js";
 
-const data = new Array(10).fill("").map(getData, index);
+const createData = () =>
+  new Array(10).fill(null).map((item, index) => getData(item, index));
+
+export { createData };
