@@ -1,9 +1,6 @@
 import { renderPhotosList, renderFearutesList } from "./utils.js";
 import { OFFER_TYPES } from "./data.js";
 
-const cardTemplate = document.querySelector("#card").content;
-const similarPopup = cardTemplate.cloneNode(true);
-
 const renderCard = function (advt, placeInsert, elemToClone) {
   let clonedElem = elemToClone.cloneNode(true);
   clonedElem.querySelector(".popup__avatar").src = advt.author.avatar;
