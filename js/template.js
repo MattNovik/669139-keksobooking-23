@@ -1,69 +1,57 @@
-import { createData } from "./main.js";
+import { renderPhotosList, renderFearutesList } from "./utils.js";
+import { OFFER_TYPES } from "./data.js";
 
 const cardTemplate = document.querySelector("#card").content;
 const similarPopup = cardTemplate.cloneNode(true);
-const popupMass = createData();
 
-popupMass.forEach((advt) => {
-  let popup = similarPopup.cloneNode(true);
-  popup.querySelector(".popup__avatar").src = advt.author.avatar;
-  popup.querySelector(".popup__title").textContent = advt.offer.title;
-  popup.querySelector(".popup__text--address").textContent = advt.offer.adress;
-  popup.querySelector(".popup__text--price").textContent =
+const renderCard = function (advt, placeInsert, elemToClone) {
+  let clonedElem = elemToClone.cloneNode(true);
+  clonedElem.querySelector(".popup__avatar").src = advt.author.avatar;
+  clonedElem.querySelector(".popup__title").textContent = advt.offer.title;
+  clonedElem.querySelector(".popup__text--address").textContent = advt.offer.adress;
+  clonedElem.querySelector(".popup__text--price").textContent =
     advt.offer.price + " ₽/ночь";
+  clonedElem.querySelector(".popup__description").textContent =
+    advt.offer.description;
 
-  // create types of advert using object
+  // create types of advert using object from data.js
 
-  const offerTypes = {
-    flat: "Квартира",
-    bungalow: "Бунгало",
-    house: "Дом",
-    palace: "Дворец",
-    hotel: "Отель",
-  };
-  popup.querySelector(".popup__type").textContent = offerTypes[advt.offer.type];
+  clonedElem.querySelector(".popup__type").textContent =
+    OFFER_TYPES[advt.offer.type];
 
   // dont make check for quantity of guest and rooms
 
-  popup.querySelector(".popup__text--capacity").textContent =
+  clonedElem.querySelector(".popup__text--capacity").textContent =
     advt.offer.rooms + " комнаты для " + advt.offer.guests + " гостей";
-  popup.querySelector(".popup__text--time").textContent =
+  clonedElem.querySelector(".popup__text--time").textContent =
     "Заезд после " + advt.offer.checkin + ", выезд до " + advt.offer.checkout;
 
-  // delete template elements from ul and create new element from data (offer.features)
+  let listFeatures = clonedElem.querySelector(".popup__features");
+  listFeatures.innerHTML = "";
 
-  let listFeatures = popup.querySelector(".popup__features");
-  let features = listFeatures.querySelectorAll(".popup__feature");
-  for (let feat of features) {
-    feat.remove();
-  }
-  let realFeatures = advt.offer.features;
-  for (let realFeat of realFeatures) {
-    let listFeaturesElement = document.createElement("li");
-    listFeaturesElement.classList.add("popup__feature");
-    listFeaturesElement.classList.add("popup__feature--" + realFeat);
-    listFeaturesElement.textContent = realFeat;
-    listFeatures.appendChild(listFeaturesElement);
-  }
+  let listPhotos = clonedElem.querySelector(".popup__photos");
+  listPhotos.innerHTML = "";
 
-  popup.querySelector(".popup__description").textContent =
-    advt.offer.description;
+  renderFearutesList(listFeatures, advt.offer.features, [
+    "li",
+    "popup__feature",
+  ]);
 
-  // delete template elements from photos and create new element from data (offer.photos)
+  renderPhotosList(listPhotos, advt.offer.photos, [
+    "img",
+    "popup__photo",
+    "Фотография жилья",
+    "45",
+    "40",
+  ]);
 
-  let listPhotos = popup.querySelector(".popup__photos");
-  let photos = listPhotos.querySelectorAll(".popup__photo");
-  for (let photo of photos) {
-    photo.remove();
-  }
-  let realPhotos = advt.offer.photos;
-  for (let realPhoto of realPhotos) {
-    let listPhotoElement = document.createElement("img");
-    listPhotoElement.classList.add("popup__photo");
-    listPhotoElement.alt = "Фотография жилья";
-    listPhotoElement.src = realPhoto;
-    listPhotoElement.width = "45";
-    listPhotoElement.height = "40";
-    listPhotos.appendChild(listPhotoElement);
-  }
-});
+  placeInsert.appendChild(clonedElem);
+};
+
+const renderDataCards = function (dataArray, placeInsert, elemToClone) {
+  dataArray.forEach((advt) => {
+    renderCard(advt, placeInsert, elemToClone);
+  });
+};
+
+export { renderCard, renderDataCards };

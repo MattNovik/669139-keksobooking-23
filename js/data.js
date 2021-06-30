@@ -22,6 +22,14 @@ const PHOTOS = [
   "https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg",
 ];
 
+const OFFER_TYPES = {
+  flat: "Квартира",
+  bungalow: "Бунгало",
+  house: "Дом",
+  palace: "Дворец",
+  hotel: "Отель",
+};
+
 const getData = (item, index, ar) => {
   const locationX = getRangeDecimal(35.65, 35.7, 5);
   const locationY = getRangeDecimal(139.7, 139.8, 5);
@@ -52,4 +60,7 @@ const getData = (item, index, ar) => {
   };
 };
 
-export { getData };
+const createData = () =>
+  new Array(10).fill(null).map((item, index) => getData(item, index));
+
+export { getData, OFFER_TYPES, createData };

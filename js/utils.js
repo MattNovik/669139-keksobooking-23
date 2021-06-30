@@ -18,9 +18,35 @@ const getRandomArrayLength = (elements) =>
 const getRandomArrayElement = (elements) =>
   elements[getRange(0, elements.length - 1)];
 
+const renderPhotosList = (placeInsert,dataArray,infArray) => { // infArray : ['elem','class','text or alt','width','height']
+  let realData = dataArray;
+  for (let real of realData) {
+    let listElement = document.createElement(infArray[0]);
+    listElement.classList.add(infArray[1]);
+    listElement.alt = infArray[2];
+    listElement.src = real;
+    listElement.width = infArray[3];
+    listElement.height = infArray[4];
+    placeInsert.appendChild(listElement);
+  }
+};
+
+const renderFearutesList = (placeInsert,dataArray,infArray) => { // infArray : ['elem','class']
+  let realData = dataArray;
+  for (let real of realData) {
+    let listElement = document.createElement(infArray[0]);
+    listElement.classList.add(infArray[1]);
+    listElement.classList.add(infArray[1] + "--" + real);
+    listElement.textContent = real;
+    placeInsert.appendChild(listElement);
+  }
+};
+
 export {
   getRange,
   getRangeDecimal,
   getRandomArrayLength,
   getRandomArrayElement,
+  renderPhotosList,
+  renderFearutesList
 };

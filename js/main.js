@@ -1,6 +1,9 @@
-import { getData } from "./data.js";
+import { createData } from "./data.js";
+import { renderCard, renderDataCards } from "./template.js";
 
-const createData = () =>
-  new Array(10).fill(null).map((item, index) => getData(item, index));
+const cardTemplate = document.querySelector("#card").content;
+const similarPopup = cardTemplate.cloneNode(true);
+const map = document.querySelector('#map-canvas');
+const popupArray = createData();
 
-export { createData };
+renderDataCards(popupArray, map, similarPopup);
