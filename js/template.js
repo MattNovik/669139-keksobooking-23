@@ -8,7 +8,8 @@ const renderCard = function (advt, placeInsert, elemToClone) {
   let clonedElem = elemToClone.cloneNode(true);
   clonedElem.querySelector(".popup__avatar").src = advt.author.avatar;
   clonedElem.querySelector(".popup__title").textContent = advt.offer.title;
-  clonedElem.querySelector(".popup__text--address").textContent = advt.offer.adress;
+  clonedElem.querySelector(".popup__text--address").textContent =
+    advt.offer.adress;
   clonedElem.querySelector(".popup__text--price").textContent =
     advt.offer.price + " ₽/ночь";
   clonedElem.querySelector(".popup__description").textContent =

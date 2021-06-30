@@ -18,7 +18,8 @@ const getRandomArrayLength = (elements) =>
 const getRandomArrayElement = (elements) =>
   elements[getRange(0, elements.length - 1)];
 
-const renderPhotosList = (placeInsert,dataArray,infArray) => { // infArray : ['elem','class','text or alt','width','height']
+const renderPhotosList = (placeInsert, dataArray, infArray) => {
+  // infArray : ['elem','class','text or alt','width','height']
   let realData = dataArray;
   for (let real of realData) {
     let listElement = document.createElement(infArray[0]);
@@ -31,7 +32,8 @@ const renderPhotosList = (placeInsert,dataArray,infArray) => { // infArray : ['e
   }
 };
 
-const renderFearutesList = (placeInsert,dataArray,infArray) => { // infArray : ['elem','class']
+const renderFearutesList = (placeInsert, dataArray, infArray) => {
+  // infArray : ['elem','class']
   let realData = dataArray;
   for (let real of realData) {
     let listElement = document.createElement(infArray[0]);
@@ -48,5 +50,5 @@ export {
   getRandomArrayLength,
   getRandomArrayElement,
   renderPhotosList,
-  renderFearutesList
+  renderFearutesList,
 };
