@@ -1,8 +1,35 @@
-import { renderPhotosList, renderFearutesList } from "./utils.js";
 import { OFFER_TYPES } from "./data.js";
 
-const renderCard = function (advt, placeInsert, elemToClone) {
-  let clonedElem = elemToClone.cloneNode(true);
+const renderPhotosList = (placeInsert, data) => {
+  const cloneImg = placeInsert.children[0].cloneNode(true); // clone element before deleted
+  placeInsert.innerHTML = "";
+  const realData = data;
+  realData.forEach((real) => {
+    let listElement = cloneImg.cloneNode(true);
+    listElement.src = real;
+    placeInsert.appendChild(listElement);
+  });
+};
+
+const renderFearutesList = (placeInsert, data) => {
+  placeInsert.innerHTML = "";
+  const realData = data;
+  realData.forEach((real) => {
+    let listElement = document.createElement("li");
+    listElement.classList.add("popup__feature");
+    listElement.classList.add("popup__feature" + "--" + real);
+    listElement.textContent = real;
+    placeInsert.appendChild(listElement);
+  });
+};
+
+const renderCard = function (advt, placeInsert) {
+  const cardTemplate = document.querySelector("#card").content;
+  const similarPopup = cardTemplate.cloneNode(true);
+  const clonedElem = similarPopup.cloneNode(true);
+  const listFeatures = clonedElem.querySelector(".popup__features");
+  const listPhotos = clonedElem.querySelector(".popup__photos");
+
   clonedElem.querySelector(".popup__avatar").src = advt.author.avatar;
   clonedElem.querySelector(".popup__title").textContent = advt.offer.title;
   clonedElem.querySelector(".popup__text--address").textContent =
@@ -24,31 +51,15 @@ const renderCard = function (advt, placeInsert, elemToClone) {
   clonedElem.querySelector(".popup__text--time").textContent =
     "Заезд после " + advt.offer.checkin + ", выезд до " + advt.offer.checkout;
 
-  let listFeatures = clonedElem.querySelector(".popup__features");
-  listFeatures.innerHTML = "";
-
-  let listPhotos = clonedElem.querySelector(".popup__photos");
-  listPhotos.innerHTML = "";
-
-  renderFearutesList(listFeatures, advt.offer.features, [
-    "li",
-    "popup__feature",
-  ]);
-
-  renderPhotosList(listPhotos, advt.offer.photos, [
-    "img",
-    "popup__photo",
-    "Фотография жилья",
-    "45",
-    "40",
-  ]);
+  renderFearutesList(listFeatures, advt.offer.features);
+  renderPhotosList(listPhotos, advt.offer.photos);
 
   placeInsert.appendChild(clonedElem);
 };
 
-const renderDataCards = function (dataArray, placeInsert, elemToClone) {
-  dataArray.forEach((advt) => {
-    renderCard(advt, placeInsert, elemToClone);
+const renderDataCards = function (data, placeInsert) {
+  data.forEach((advt) => {
+    renderCard(advt, placeInsert);
   });
 };
 
