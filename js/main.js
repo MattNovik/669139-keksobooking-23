@@ -1,3 +1,7 @@
-import { getData } from "./createData.js";
+import { createData } from "./data.js";
+import { renderCard, renderDataCards } from "./template.js";
 
-const data = new Array(10).fill("").map(getData, index);
+const map = document.querySelector("#map-canvas");
+const popupArray = createData();
+
+renderDataCards(popupArray, map);

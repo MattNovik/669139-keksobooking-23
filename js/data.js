@@ -22,10 +22,18 @@ const PHOTOS = [
   "https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg",
 ];
 
+const OFFER_TYPES = {
+  flat: "Квартира",
+  bungalow: "Бунгало",
+  house: "Дом",
+  palace: "Дворец",
+  hotel: "Отель",
+};
+
 const getData = (item, index, ar) => {
   const locationX = getRangeDecimal(35.65, 35.7, 5);
   const locationY = getRangeDecimal(139.7, 139.8, 5);
-  const index = index + 1 != 10 ? "0" + (index + 1) : index + 1; // для добавления 0 если номер меньше 10 и увеличения на 1
+  const indexType = index + 1 != 10 ? "0" + (index + 1) : index + 1; // для добавления 0 если номер меньше 10 и увеличения на 1
 
   return {
     location: {
@@ -33,7 +41,7 @@ const getData = (item, index, ar) => {
       lng: locationY,
     },
     author: {
-      avatar: "img/avatars/user" + index + ".png",
+      avatar: "img/avatars/user" + indexType + ".png",
     },
 
     offer: {
@@ -52,4 +60,7 @@ const getData = (item, index, ar) => {
   };
 };
 
-export { getData };
+const createData = () =>
+  new Array(10).fill(null).map((item, index) => getData(item, index));
+
+export { getData, OFFER_TYPES, createData };
