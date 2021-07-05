@@ -103,20 +103,20 @@ formTitle.addEventListener("input", () => {
 formHouseType.addEventListener("input", () => {
   const valueHouseType = formHouseType.value;
 
-  if (valueHouseType == 'bungalow') {
-    formPrice.setAttribute("min","0");
+  if (valueHouseType == "bungalow") {
+    formPrice.setAttribute("min", "0");
     formPrice.setAttribute("placeholder", "0");
   } else if (valueHouseType == "flat") {
-    formPrice.setAttribute("min","1000");
+    formPrice.setAttribute("min", "1000");
     formPrice.setAttribute("placeholder", "1000");
   } else if (valueHouseType == "hotel") {
-    formPrice.setAttribute("min","3000");
+    formPrice.setAttribute("min", "3000");
     formPrice.setAttribute("placeholder", "3000");
   } else if (valueHouseType == "house") {
-    formPrice.setAttribute("min","5000");
+    formPrice.setAttribute("min", "5000");
     formPrice.setAttribute("placeholder", "5000");
   } else if (valueHouseType == "palace") {
-    formPrice.setAttribute("min","10000");
+    formPrice.setAttribute("min", "10000");
     formPrice.setAttribute("placeholder", "10000");
   }
 });
@@ -126,7 +126,9 @@ formPrice.addEventListener("input", () => {
   const valueAttrPriceMin = formPrice.getAttribute("min");
 
   if (valuePrice < formPrice.min) {
-    formPrice.setCustomValidity(`Price need to be more than ${valueAttrPriceMin}`);
+    formPrice.setCustomValidity(
+      `Price need to be more than ${valueAttrPriceMin}`
+    );
   } else {
     formPrice.setCustomValidity("");
   }
