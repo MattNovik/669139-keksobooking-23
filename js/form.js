@@ -18,14 +18,16 @@ form.method = "POST";
 form.action = "https://23.javascript.pages.academy/keksobooking";
 form.enctype = "multipart/form-data";
 
-form.classList.add("ad-form--disabled");
-filtersForm.classList.add("ad-form--disabled");
-formFieldsets.forEach((field) => {
-  field.setAttribute("disabled", "disabled");
-});
-filterFormFieldsets.forEach((field) => {
-  field.setAttribute("disabled", "disabled");
-});
+const windowLoading = function () {
+  form.classList.add("ad-form--disabled");
+  filtersForm.classList.add("ad-form--disabled");
+  formFieldsets.forEach((field) => {
+    field.setAttribute("disabled", "disabled");
+  });
+  filterFormFieldsets.forEach((field) => {
+    field.setAttribute("disabled", "disabled");
+  });
+};
 
 const windowReady = function () {
   form.classList.remove("ad-form--disabled");
@@ -38,7 +40,8 @@ const windowReady = function () {
   });
 };
 
-window.onload = windowReady();
+windowLoading();
+/*window.onload = windowReady();*/
 
 formRooms.addEventListener("input", () => {
   const valueRooms = formRooms.value;
