@@ -52,7 +52,8 @@ const unlockForm = function () {
 };
 
 lockForm();
-window.onload = unlockForm();
+
+window.addEventListener("load",unlockForm());
 
 formRooms.addEventListener("input", (evt) => {
   const peopleAmount = evt.target.value;
