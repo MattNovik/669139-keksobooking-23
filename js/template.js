@@ -3,9 +3,8 @@ import { OFFER_TYPES } from "./data.js";
 const renderPhotosList = (placeInsert, data) => {
   const cloneImg = placeInsert.children[0].cloneNode(true); // clone element before deleted
   placeInsert.innerHTML = "";
-  const realData = data;
-  realData.forEach((real) => {
-    let listElement = cloneImg.cloneNode(true);
+  data.forEach((real) => {
+    const listElement = cloneImg.cloneNode(true);
     listElement.src = real;
     placeInsert.appendChild(listElement);
   });
@@ -13,9 +12,8 @@ const renderPhotosList = (placeInsert, data) => {
 
 const renderFearutesList = (placeInsert, data) => {
   placeInsert.innerHTML = "";
-  const realData = data;
-  realData.forEach((real) => {
-    let listElement = document.createElement("li");
+  data.forEach((real) => {
+    const listElement = document.createElement("li");
     listElement.classList.add("popup__feature");
     listElement.classList.add("popup__feature" + "--" + real);
     listElement.textContent = real;
