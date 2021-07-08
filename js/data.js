@@ -61,6 +61,6 @@ const getData = (item, index, ar) => {
 };
 
 const createData = () =>
-  new Array(10).fill(null).map((item, index) => getData(item, index));
+  new Array(3).fill(null).map((item, index) => getData(item, index));
 
 export { getData, OFFER_TYPES, createData };
