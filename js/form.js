@@ -28,6 +28,15 @@ const formFieldsets = form.querySelectorAll("fieldset");
 const filterFormFieldsets = filtersForm.querySelectorAll("fieldset");
 const formTimein = form.querySelector("#timein");
 const formTimeout = form.querySelector("#timeout");
+const formAddress = form.querySelector("#address");
+
+const addAdressToForm = (marker) => {
+  const latLng = [];
+  const markObj = marker.getLatLng();
+  latLng.push(markObj.lat.toFixed(5));
+  latLng.push(markObj.lng.toFixed(5));
+  return latLng.join(",");
+};
 
 const lockForm = function () {
   form.classList.add("ad-form--disabled");
@@ -52,8 +61,6 @@ const unlockForm = function () {
 };
 
 lockForm();
-
-window.addEventListener("load",unlockForm());
 
 formRooms.addEventListener("input", (evt) => {
   const peopleAmount = evt.target.value;
@@ -162,3 +169,5 @@ formTimeout.addEventListener("input", (evt) => {
 /*formSend.addEventListener("submit", function (evt) {
 
 });*/
+
+export { unlockForm, formAddress, addAdressToForm };

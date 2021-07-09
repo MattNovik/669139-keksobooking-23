@@ -61,4 +61,4 @@ const renderDataCards = function (data, placeInsert) {
   });
 };
 
-export { renderCard, renderDataCards };
+export { renderCard, renderDataCards, renderFearutesList, renderPhotosList };
