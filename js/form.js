@@ -30,6 +30,14 @@ const formTimein = form.querySelector("#timein");
 const formTimeout = form.querySelector("#timeout");
 const formAddress = form.querySelector("#address");
 
+const addAdressToForm = (marker) => {
+  const latLng = [];
+  const markObj = marker.getLatLng();
+  latLng.push(markObj.lat.toFixed(5));
+  latLng.push(markObj.lng.toFixed(5));
+  return latLng.join(",");
+};
+
 const lockForm = function () {
   form.classList.add("ad-form--disabled");
   filtersForm.classList.add("ad-form--disabled");
@@ -162,4 +170,4 @@ formTimeout.addEventListener("input", (evt) => {
 
 });*/
 
-export { unlockForm, formAddress };
+export { unlockForm, formAddress, addAdressToForm };
