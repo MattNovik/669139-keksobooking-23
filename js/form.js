@@ -1,3 +1,5 @@
+import { isEnterEvent } from "./utils.js";
+
 const MIN_NAME_LENGTH = 30;
 const MAX_NAME_LENGTH = 100;
 
@@ -166,8 +168,4 @@ formTimeout.addEventListener("input", (evt) => {
   formTimeout.value = evt.target.value;
 });
 
-/*formSend.addEventListener("submit", function (evt) {
-
-});*/
-
-export { unlockForm, formAddress, addAdressToForm };
+export { unlockForm, formAddress, addAdressToForm, form };

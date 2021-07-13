@@ -18,9 +18,19 @@ const getRandomArrayLength = (elements) =>
 const getRandomArrayElement = (elements) =>
   elements[getRange(0, elements.length - 1)];
 
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+const isEnterEvent = (evt) => {
+  return evt.key === 'Enter';
+};
+
 export {
   getRange,
   getRangeDecimal,
   getRandomArrayLength,
   getRandomArrayElement,
+  isEscEvent,
+  isEnterEvent,
 };

@@ -21,8 +21,16 @@ const createPopup = (opt) => {
   popupElement.querySelector(".popup__description").textContent =
     opt.offer.description;
 
-  renderPhotosList(popupPhotoList, opt.offer.photos);
-  renderFearutesList(popupFeaturesList, opt.offer.features);
+  if (opt.offer.photos) {
+    renderPhotosList(popupPhotoList, opt.offer.photos);
+  } else {
+    popupPhotoList.innerHTML = '';
+  }
+  if (opt.offer.features) {
+    renderFearutesList(popupFeaturesList, opt.offer.features);
+  } else {
+    popupFeaturesList.innerHTML = '';
+  }
 
   return popupElement;
 };

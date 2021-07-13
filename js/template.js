@@ -1,4 +1,5 @@
 import { OFFER_TYPES } from "./data.js";
+import { isEscEvent } from "./utils.js";
 
 const renderPhotosList = (placeInsert, data) => {
   const cloneImg = placeInsert.children[0].cloneNode(true); // clone element before deleted
@@ -61,4 +62,33 @@ const renderDataCards = function (data, placeInsert) {
   });
 };
 
-export { renderCard, renderDataCards, renderFearutesList, renderPhotosList };
+const createSuccessMessage = function (placeInsert) {
+  const successMessageTemplate = document.querySelector("#success").content;
+  const similarMessage = successMessageTemplate.cloneNode(true);
+  placeInsert.appendChild(similarMessage);
+};
+
+const createErrorMessage = function (placeInsert) {
+  const errorMessageTemplate = document.querySelector("#error").content;
+  const similarMessage = errorMessageTemplate.cloneNode(true);
+  placeInsert.appendChild(similarMessage);
+};
+
+const createErrorMessageGet = function () {
+  const message = document.createElement('div');
+  message.style.zIndex = 100;
+  message.style.position = 'absolute';
+  message.style.left = 0;
+  message.style.top = 0;
+  message.style.right = 0;
+  message.style.padding = '10px 3px';
+  message.style.fontSize = '30px';
+  message.style.textAlign = 'center';
+  message.style.backgroundColor = 'red';
+
+  message.textContent ="Don't get information from server";
+
+  document.body.append(message);
+};
+
+export { renderCard, renderDataCards, renderFearutesList, renderPhotosList, createSuccessMessage, createErrorMessage, createErrorMessageGet };

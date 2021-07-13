@@ -1,8 +1,8 @@
 import { unlockForm, formAddress, addAdressToForm } from "./form.js";
-import { createData } from "./data.js";
+import { getData } from "./api.js";
 import { createPopup } from "./popup.js";
+import { createErrorMessageGet } from "./template.js";
 
-const popupArray = createData();
 const map = L.map("map-canvas")
   .setView(
     {
@@ -33,7 +33,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-marker.addTo(map).bindPopup(createPopup(popupArray[0]));
+marker.addTo(map);
 
 formAddress.value = addAdressToForm(marker);
 
@@ -45,24 +45,30 @@ marker.on("moveend", (evt) => {
   formAddress.value = latLng.join(",");
 });
 
-popupArray.forEach((opt) => {
-  const icon = L.icon({
-    iconUrl: "img/pin.svg",
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
+const renderPopups = function(advt) {
+  advt.forEach((opt) => {
+    const icon = L.icon({
+      iconUrl: "img/pin.svg",
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
 
-  const markerMin = L.marker(
-    {
-      lat: opt.location.lat,
-      lng: opt.location.lng,
-    },
-    {
-      icon: icon,
-    }
-  );
+    const markerMin = L.marker(
+      {
+        lat: opt.location.lat,
+        lng: opt.location.lng,
+      },
+      {
+        icon: icon,
+      }
+    );
 
-  markerMin.addTo(map).bindPopup(createPopup(opt), {
-    keepInView: true,
+    markerMin.addTo(map).bindPopup(createPopup(opt), {
+      keepInView: true,
+    });
   });
-});
+};
+
+getData((data) => {
+  renderPopups(data);
+}, createErrorMessageGet);
