@@ -16,22 +16,22 @@ const closeMessage = () => {
   } else if (successMessage) {
     successMessage.remove();
   }
-  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener("keydown", onPopupEscKeydown);
 };
 
 const createSuccessSubmit = function () {
   createSuccessMessage(document.body);
   const successMessage = document.querySelector(".success");
-  successMessage.addEventListener("click", closeMessage)
-  document.addEventListener('keydown', onPopupEscKeydown);
+  successMessage.addEventListener("click", closeMessage);
+  document.addEventListener("keydown", onPopupEscKeydown);
   form.reset();
 };
 
 const renderErrorMessage = function () {
   createErrorMessage(document.body);
   const errorMessage = document.querySelector(".error");
-  errorMessage.addEventListener("click", closeMessage)
-  document.addEventListener('keydown', onPopupEscKeydown);
+  errorMessage.addEventListener("click", closeMessage);
+  document.addEventListener("keydown", onPopupEscKeydown);
   form.reset();
 };
 

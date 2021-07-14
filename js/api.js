@@ -1,12 +1,12 @@
 import { form } from "./form.js";
 
 const getData = (onSuccess, onFail) => {
-  fetch('https://23.javascript.pages.academy/keksobooking/data')
+  fetch("https://23.javascript.pages.academy/keksobooking/data")
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
     })
-    .catch(()=> {
+    .catch(() => {
       onFail();
     });
 };
@@ -35,23 +35,20 @@ const sendFormData = (onSuccess, onFail) => {
     evt.preventDefault();
     const formData = new FormData(evt.target);
 
-    fetch(
-      'https://23.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    )
-    .then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onFail();
-      }
+    fetch("https://23.javascript.pages.academy/keksobooking", {
+      method: "POST",
+      body: formData,
     })
-    .catch(() => {
-      onFail();
-    });
+      .then((response) => {
+        if (response.ok) {
+          onSuccess();
+        } else {
+          onFail();
+        }
+      })
+      .catch(() => {
+        onFail();
+      });
   });
 };
 

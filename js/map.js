@@ -90,13 +90,9 @@ function isPrice(value) {
 };
 
 function isRoom(value) {
-  if (priceType.value == 'any') {
+  if (roomsType.value == 'any') {
     return true;
-  } else if (priceType.value == 'middle' && value.offer.price => 10000 ** value.offer.price =< 50000) {
-    return true;
-  } else  if (priceType.value == 'low' && value.offer.price < 10000) {
-    return true;
-  } else  if (priceType.value == 'high' && value.offer.price > 50000) {
+  } else if (roomsType.value == value.offer.rooms) {
     return true;
   } else {
     return false;
@@ -104,13 +100,9 @@ function isRoom(value) {
 };
 
 function isGuest(value) {
-  if (priceType.value == 'any') {
+  if (guestsType.value == 'any') {
     return true;
-  } else if (priceType.value == 'middle' && value.offer.price => 10000 ** value.offer.price =< 50000) {
-    return true;
-  } else  if (priceType.value == 'low' && value.offer.price < 10000) {
-    return true;
-  } else  if (priceType.value == 'high' && value.offer.price > 50000) {
+  } else if (guestType.value == value.offer.guests) {
     return true;
   } else {
     return false;

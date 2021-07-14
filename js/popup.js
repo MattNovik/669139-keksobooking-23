@@ -24,12 +24,12 @@ const createPopup = (opt) => {
   if (opt.offer.photos) {
     renderPhotosList(popupPhotoList, opt.offer.photos);
   } else {
-    popupPhotoList.innerHTML = '';
+    popupPhotoList.innerHTML = "";
   }
   if (opt.offer.features) {
     renderFearutesList(popupFeaturesList, opt.offer.features);
   } else {
-    popupFeaturesList.innerHTML = '';
+    popupFeaturesList.innerHTML = "";
   }
 
   return popupElement;
