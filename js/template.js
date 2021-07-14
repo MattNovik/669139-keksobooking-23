@@ -86,7 +86,7 @@ const createErrorMessageGet = function () {
   message.style.textAlign = 'center';
   message.style.backgroundColor = 'red';
 
-  message.textContent ="Don't get information from server";
+  message.textContent ="Didn't get information from server";
 
   document.body.append(message);
 };
