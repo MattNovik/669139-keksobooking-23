@@ -78,7 +78,7 @@ const guestsType = document.querySelector("#housing-guests");
 function isPrice(value) {
   if (priceType.value == 'any') {
     return true;
-  } else if (priceType.value == 'middle' && value.offer.price => 10000 ** value.offer.price =< 50000) {
+  } else if (priceType.value == 'middle' && (value.offer.price >= 10000 || value.offer.price <= 50000)) {
     return true;
   } else  if (priceType.value == 'low' && value.offer.price < 10000) {
     return true;
