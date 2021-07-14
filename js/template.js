@@ -22,7 +22,7 @@ const renderFearutesList = (placeInsert, data) => {
   });
 };
 
-const renderCard = function (advt, placeInsert) {
+/*const renderCard = function (advt, placeInsert) {
   const cardTemplate = document.querySelector("#card").content;
   const similarPopup = cardTemplate.cloneNode(true);
   const clonedElem = similarPopup.cloneNode(true);
@@ -60,7 +60,7 @@ const renderDataCards = function (data, placeInsert) {
   data.forEach((advt) => {
     renderCard(advt, placeInsert);
   });
-};
+};*/
 
 const createSuccessMessage = function (placeInsert) {
   const successMessageTemplate = document.querySelector("#success").content;
@@ -74,29 +74,11 @@ const createErrorMessage = function (placeInsert) {
   placeInsert.appendChild(similarMessage);
 };
 
-const createErrorMessageGet = function () {
-  const message = document.createElement("div");
-  message.style.zIndex = 100;
-  message.style.position = "absolute";
-  message.style.left = 0;
-  message.style.top = 0;
-  message.style.right = 0;
-  message.style.padding = "10px 3px";
-  message.style.fontSize = "30px";
-  message.style.textAlign = "center";
-  message.style.backgroundColor = "red";
-
-  message.textContent = "Didn't get information from server";
-
-  document.body.append(message);
-};
-
 export {
-  renderCard,
-  renderDataCards,
+  /*renderCard,
+  renderDataCards,*/
   renderFearutesList,
   renderPhotosList,
   createSuccessMessage,
   createErrorMessage,
-  createErrorMessageGet,
 };

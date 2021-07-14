@@ -35,4 +35,20 @@ const renderErrorMessage = function () {
   form.reset();
 };
 
-export { createSuccessSubmit, renderErrorMessage };
+const createErrorMessageGet = function () {
+  const message = document.createElement("div");
+  message.style.zIndex = 100;
+  message.style.position = "absolute";
+  message.style.left = 0;
+  message.style.top = 0;
+  message.style.right = 0;
+  message.style.padding = "10px 3px";
+  message.style.fontSize = "30px";
+  message.style.textAlign = "center";
+  message.style.backgroundColor = "red";
+
+  message.textContent = "Didn't get information from server";
+
+  document.body.append(message);
+};
+export { createSuccessSubmit, renderErrorMessage, createErrorMessageGet };

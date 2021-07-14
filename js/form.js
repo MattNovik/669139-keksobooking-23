@@ -1,4 +1,5 @@
 import { isEnterEvent } from "./utils.js";
+import { sendFormData } from "./api.js";
 
 const MIN_NAME_LENGTH = 30;
 const MAX_NAME_LENGTH = 100;
@@ -79,49 +80,6 @@ formRooms.addEventListener("input", (evt) => {
   });
 });
 
-/*const valueRooms = formRooms.value;
-  const valueGuest = formGuest.value;
-
-  if (valueRooms == 1 && valueGuest != 1) {
-    formGuest.setCustomValidity("only for 1 guest");
-  } else if (valueRooms == 2 && valueGuest != 2 && valueGuest != 1) {
-    formGuest.setCustomValidity("only for 1 or 2 guests");
-  } else if (valueRooms == 3 && valueGuest == 0) {
-    formGuest.setCustomValidity("only for 1, 2 or 3 guests");
-  } else if (valueRooms == 100 && valueGuest != 0) {
-    formGuest.setCustomValidity("not for guests");
-  } else {
-    formGuest.setCustomValidity("");
-  }
-
-  formGuest.reportValidity();*/
-
-/*formGuest.addEventListener("input", () => {
-  const valueRooms = formRooms.value;
-  const valueGuest = formGuest.value;
-
-  if (
-    valueGuest == 1 &&
-    valueRooms != 1 &&
-    valueRooms != 2 &&
-    valueRooms != 3
-  ) {
-    formGuest.setCustomValidity("not for guests");
-  } else if (valueGuest == 2 && valueRooms == 1) {
-    formGuest.setCustomValidity("only for 1 guest");
-  } else if (valueGuest == 2 && valueRooms == 100) {
-    formGuest.setCustomValidity("not for guest");
-  } else if (valueGuest == 3 && (valueRooms == 100 || valueRooms != 3)) {
-    formGuest.setCustomValidity("only for 1, 2 or 3 guests");
-  } else if (valueGuest == 0 && valueRooms != 100) {
-    formGuest.setCustomValidity("need more rooms");
-  } else {
-    formGuest.setCustomValidity("");
-  }
-
-  formGuest.reportValidity();
-});*/
-
 formTitle.addEventListener("input", () => {
   const valueLength = formTitle.value.length;
   if (valueLength < MIN_NAME_LENGTH) {
@@ -143,21 +101,6 @@ formHouseType.addEventListener("input", (evt) => {
   formPrice.setAttribute("placeholder", houseTypePrice[valueHouseType]);
 });
 
-/*formPrice.addEventListener("input", () => {
-  const valuePrice = formPrice.value;
-  const valueAttrPriceMin = formPrice.getAttribute("min");
-
-  if (valuePrice < formPrice.min) {
-    formPrice.setCustomValidity(
-      `Price need to be more than ${valueAttrPriceMin}`
-    );
-  } else {
-    formPrice.setCustomValidity("");
-  }
-
-  formPrice.reportValidity(); //проверяет цену при вводе, а не только при отправке
-});*/
-
 formTimein.addEventListener("input", (evt) => {
   formTimein.value = evt.target.value;
   formTimeout.value = evt.target.value;
@@ -168,4 +111,12 @@ formTimeout.addEventListener("input", (evt) => {
   formTimeout.value = evt.target.value;
 });
 
-export { unlockForm, formAddress, addAdressToForm, form };
+const setUserFormSubmit = (onSuccess, onFail) => {
+  form.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+
+    sendFormData(() => onSuccess(),() => onFail(),new FormData(evt.target));
+  });
+};
+
+export { unlockForm, formAddress, addAdressToForm, setUserFormSubmit, form};
