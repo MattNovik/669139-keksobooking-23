@@ -1,5 +1,4 @@
-import { OFFER_TYPES } from "./data.js";
-import { isEscEvent } from "./utils.js";
+/*import { OFFER_TYPES } from "./data.js";*/
 
 const renderPhotosList = (placeInsert, data) => {
   const cloneImg = placeInsert.children[0].cloneNode(true); // clone element before deleted

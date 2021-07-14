@@ -1,49 +1,60 @@
+import { markerGroup, renderPopups } from "./map.js";
+import { debounce } from "./utils.js";
 
 const houseType = document.querySelector("#housing-type");
 const priceType = document.querySelector("#housing-price");
 const roomsType = document.querySelector("#housing-rooms");
 const guestsType = document.querySelector("#housing-guests");
+const filterForm = document.querySelector(".map__filters");
 
-function isPrice(value) {
-  if (priceType.value == 'any') {
-    return true;
-  } else if (priceType.value == 'middle' && (value.offer.price >= 10000 || value.offer.price <= 50000)) {
-    return true;
-  } else  if (priceType.value == 'low' && value.offer.price < 10000) {
-    return true;
-  } else  if (priceType.value == 'high' && value.offer.price > 50000) {
-    return true;
-  } else {
-    return false;
-  }
+const filterPrice = (advt) => {
+  return priceType.value == 'any' || (priceType.value == 'middle' && (advt.offer.price >= 10000 || advt.offer.price <= 50000)) || (priceType.value == 'low' && advt.offer.price < 10000) || (priceType.value == 'high' && advt.offer.price > 50000) ? true : false;
 };
 
-function isRoom(value) {
-  if (roomsType.value == 'any') {
-    return true;
-  } else if (roomsType.value == value.offer.rooms) {
-    return true;
-  } else {
-    return false;
-  }
+const filterRoom = (advt) => {
+  return roomsType.value == 'any' || Number(roomsType.value) == advt.offer.rooms;
 };
 
-function isGuest(value) {
-  if (guestsType.value == 'any') {
-    return true;
-  } else if (guestType.value == value.offer.guests) {
-    return true;
-  } else {
-    return false;
-  }
+const filterGuest = (advt) => {
+  return guestsType.value == 'any' || Number(guestsType.value) == advt.offer.guests;
 };
 
-function isHouse(value) {
-  if (houseType.value == 'any') {
-    return true;
-  } else if (value.offer.type == houseType.value) {
-    return true;
-  } else {
-    return false;
-  }
+const filterHouse = (advt) => {
+  return houseType.value == 'any' || advt.offer.type == houseType.value;
 };
+
+const filterFeatures = (advt) => {
+  const featuresList = filterForm.querySelectorAll(".map__checkbox:checked");
+  let countList = 0;
+
+  featuresList.forEach((opt) => {
+    if (advt.offer.features && advt.offer.features.includes(opt.value)) {
+      countList++;
+    }
+  });
+
+  return countList === featuresList.length;
+};
+
+const setFilter = (data) => {
+  const filtdData = data.filter((advt) => {
+    return (
+      filterHouse(advt) && filterPrice(advt) && filterRoom(advt) && filterGuest(advt) && filterFeatures(advt)
+    )
+  });
+  return filtdData;
+};
+
+const filterChange = (data) => {
+  return debounce(() => {
+    const filteredData = setFilter(data);
+    markerGroup.clearLayers();
+    renderPopups(filteredData.slice(0,10));
+  }, 500);
+};
+
+const setFilterChange = (data) => {
+  filterForm.addEventListener("change", filterChange(data));
+};
+
+export { setFilterChange, filterForm };

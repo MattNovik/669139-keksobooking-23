@@ -26,6 +26,18 @@ const isEnterEvent = (evt) => {
   return evt.key === "Enter";
 };
 
+const debounce = (func, time) => {
+  let timer;
+  return function debounced() {
+    clearTimeout(timer);
+    let args = arguments;
+    let that = this;
+    timer = setTimeout(function callOriginalFn() {
+      func.apply(that, args);
+    }, time);
+  };
+};
+
 export {
   getRange,
   getRangeDecimal,
@@ -33,4 +45,5 @@ export {
   getRandomArrayElement,
   isEscEvent,
   isEnterEvent,
+  debounce,
 };

@@ -10,8 +10,7 @@ const getData = (onSuccess, onFail) => {
 };
 
 const sendFormData = (onSuccess, onFail, body) => {
-  fetch("https://23.javascript.pages.academy/keksobooking",
-  {
+  fetch("https://23.javascript.pages.academy/keksobooking", {
     method: "POST",
     body,
   })

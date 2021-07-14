@@ -1,16 +1,15 @@
-import { isEnterEvent } from "./utils.js";
 import { sendFormData } from "./api.js";
 
 const MIN_NAME_LENGTH = 30;
 const MAX_NAME_LENGTH = 100;
 
-const valueRooms = {
+const VALUE_ROOMS = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
   100: [0],
 };
-const houseTypePrice = {
+const HOUSE_TYPE_PRICE = {
   bungalow: 0,
   flat: 1000,
   hotel: 3000,
@@ -33,12 +32,10 @@ const formTimein = form.querySelector("#timein");
 const formTimeout = form.querySelector("#timeout");
 const formAddress = form.querySelector("#address");
 
-const addAdressToForm = (marker) => {
-  const latLng = [];
-  const markObj = marker.getLatLng();
-  latLng.push(markObj.lat.toFixed(5));
-  latLng.push(markObj.lng.toFixed(5));
-  return latLng.join(",");
+const addAdressToForm = (lat, lng) => {
+  const markLat = lat.toFixed(5);
+  const markLong = lng.toFixed(5);
+  formAddress.value = markLat + " ," + markLong;
 };
 
 const lockForm = function () {
@@ -63,14 +60,12 @@ const unlockForm = function () {
   });
 };
 
-lockForm();
-
 formRooms.addEventListener("input", (evt) => {
   const peopleAmount = evt.target.value;
   formGuestOptions.forEach((option) => {
     option.disabled = true;
   });
-  valueRooms[peopleAmount].forEach((seatsAmount) => {
+  VALUE_ROOMS[peopleAmount].forEach((seatsAmount) => {
     formGuestOptions.forEach((option) => {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;
@@ -97,8 +92,8 @@ formTitle.addEventListener("input", () => {
 
 formHouseType.addEventListener("input", (evt) => {
   const valueHouseType = evt.target.value;
-  formPrice.setAttribute("min", houseTypePrice[valueHouseType]);
-  formPrice.setAttribute("placeholder", houseTypePrice[valueHouseType]);
+  formPrice.setAttribute("min", HOUSE_TYPE_PRICE[valueHouseType]);
+  formPrice.setAttribute("placeholder", HOUSE_TYPE_PRICE[valueHouseType]);
 });
 
 formTimein.addEventListener("input", (evt) => {
@@ -119,4 +114,4 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   });
 };
 
-export { unlockForm, formAddress, addAdressToForm, setUserFormSubmit, form};
+export { unlockForm, lockForm, addAdressToForm, setUserFormSubmit, form};

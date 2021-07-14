@@ -1,48 +1,63 @@
-import { unlockForm, formAddress, addAdressToForm } from "./form.js";
+import { unlockForm, addAdressToForm } from "./form.js";
 import { getData } from "./api.js";
 import { createPopup } from "./popup.js";
 
-const map = L.map("map-canvas")
-  .setView(
-    {
-      lat: 35.4122,
-      lng: 139.413,
-    },
-    10
-  )
-  .on("load", unlockForm());
-const mainIcon = L.icon({
-  iconUrl: "img/main-pin.svg",
-  iconSize: [52, 52],
-  iconAnchor: [,],
-});
-const marker = L.marker(
-  {
-    lat: 35.4122,
-    lng: 139.413,
-  },
-  {
-    draggable: true,
-    icon: mainIcon,
-  }
-);
+const map = L.map("map-canvas");
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
+const movePin = (evt) => {
+  const markLat = evt.target.getLatLng().lat;
+  const markLong = evt.target.getLatLng().lng;
+  addAdressToForm(markLat, markLong );
+};
+
+const uploadedMap = () => {
+  addAdressToForm(35.698, 139.7613);
+  unlockForm();
+};
+
+const createMarker = () => {
+  const mainIcon = L.icon({
+    iconUrl: "img/main-pin.svg",
+    iconSize: [52, 52],
+    iconAnchor: [,],
+  });
+
+  const marker = L.marker(
+    {
+      lat: 35.6982,
+      lng: 139.7613,
+    },
+    {
+      draggable: true,
+      icon: mainIcon,
+    }
+  );
+
+  return marker;
+};
+
+const marker = createMarker();
+
+const createMap = () => {
+  map
+    .on("load", uploadedMap)
+    .setView(
+      {
+        lat: 35.6982,
+        lng: 139.7613,
+      },
+      10
+    );
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+};
 
 marker.addTo(map);
 
-formAddress.value = addAdressToForm(marker);
-
-marker.on("moveend", (evt) => {
-  const latLng = [];
-  const markObj = evt.target.getLatLng();
-  latLng.push(markObj.lat.toFixed(5));
-  latLng.push(markObj.lng.toFixed(5));
-  formAddress.value = latLng.join(",");
-});
+marker.on("moveend", movePin);
 
 const markerGroup = L.layerGroup().addTo(map);
 const renderPopups = function(advt) {
@@ -69,4 +84,4 @@ const renderPopups = function(advt) {
   });
 };
 
-export { renderPopups };
+export { renderPopups, markerGroup, createMap };
