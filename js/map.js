@@ -45,6 +45,7 @@ marker.on("moveend", (evt) => {
   formAddress.value = latLng.join(",");
 });
 
+const markerGroup = L.layerGroup().addTo(map);
 const renderPopups = function(advt) {
   advt.forEach((opt) => {
     const icon = L.icon({
@@ -63,12 +64,78 @@ const renderPopups = function(advt) {
       }
     );
 
-    markerMin.addTo(map).bindPopup(createPopup(opt), {
+    markerMin.addTo(markerGroup).bindPopup(createPopup(opt), {
       keepInView: true,
     });
   });
 };
 
+const houseType = document.querySelector("#housing-type");
+const priceType = document.querySelector("#housing-price");
+const roomsType = document.querySelector("#housing-rooms");
+const guestsType = document.querySelector("#housing-guests");
+
+function isPrice(value) {
+  if (priceType.value == 'any') {
+    return true;
+  } else if (priceType.value == 'middle' && value.offer.price => 10000 ** value.offer.price =< 50000) {
+    return true;
+  } else  if (priceType.value == 'low' && value.offer.price < 10000) {
+    return true;
+  } else  if (priceType.value == 'high' && value.offer.price > 50000) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function isRoom(value) {
+  if (priceType.value == 'any') {
+    return true;
+  } else if (priceType.value == 'middle' && value.offer.price => 10000 ** value.offer.price =< 50000) {
+    return true;
+  } else  if (priceType.value == 'low' && value.offer.price < 10000) {
+    return true;
+  } else  if (priceType.value == 'high' && value.offer.price > 50000) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function isGuest(value) {
+  if (priceType.value == 'any') {
+    return true;
+  } else if (priceType.value == 'middle' && value.offer.price => 10000 ** value.offer.price =< 50000) {
+    return true;
+  } else  if (priceType.value == 'low' && value.offer.price < 10000) {
+    return true;
+  } else  if (priceType.value == 'high' && value.offer.price > 50000) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function isHouse(value) {
+  if (houseType.value == 'any') {
+    return true;
+  } else if (value.offer.type == houseType.value) {
+    return true;
+  } else {
+    return false;
+  }
+};
+/*const filtArray = function(data) {
+
+};*/
+
 getData((data) => {
-  renderPopups(data);
+  const newArray = data;
+  renderPopups(newArray.slice(0,10));
+  houseType.addEventListener("input", () => {
+    markerGroup.clearLayers();
+    const objNew = newArray.filter(isHouse);
+    renderPopups(objNew.slice(0,10));
+  });
 }, createErrorMessageGet);
