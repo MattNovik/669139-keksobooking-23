@@ -1,8 +1,7 @@
-import { unlockForm, addAdressToForm } from "./form.js";
-import { getData } from "./api.js";
-import { createPopup } from "./popup.js";
+import { unlockForm, addAdressToForm } from './form.js';
+import { createPopup } from './popup.js';
 
-const map = L.map("map-canvas");
+const map = L.map('map-canvas');
 
 const movePin = (evt) => {
   const markLat = evt.target.getLatLng().lat;
@@ -17,12 +16,12 @@ const uploadedMap = () => {
 
 const createMarker = () => {
   const mainIcon = L.icon({
-    iconUrl: "img/main-pin.svg",
+    iconUrl: 'img/main-pin.svg',
     iconSize: [52, 52],
-    iconAnchor: [,],
+    iconAnchor: [26,26],
   });
 
-  const marker = L.marker(
+  const markerPoint = L.marker(
     {
       lat: 35.6982,
       lng: 139.7613,
@@ -30,38 +29,38 @@ const createMarker = () => {
     {
       draggable: true,
       icon: mainIcon,
-    }
+    },
   );
 
-  return marker;
+  return markerPoint;
 };
 
 const marker = createMarker();
 
 const createMap = () => {
-  map.on("load", uploadedMap)
+  map.on('load', uploadedMap)
     .setView(
       {
         lat: 35.6982,
         lng: 139.7613,
       },
-      10
+      10,
     );
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 };
 
 marker.addTo(map);
-marker.on("moveend", movePin);
+marker.on('moveend', movePin);
 
 const markerGroup = L.layerGroup().addTo(map);
 const renderPopups = function(advt) {
   advt.forEach((opt) => {
     const icon = L.icon({
-      iconUrl: "img/pin.svg",
+      iconUrl: 'img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [20, 40],
     });
@@ -73,7 +72,7 @@ const renderPopups = function(advt) {
       },
       {
         icon: icon,
-      }
+      },
     );
 
     markerMin.addTo(markerGroup).bindPopup(createPopup(opt), {

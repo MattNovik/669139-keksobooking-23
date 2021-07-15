@@ -1,5 +1,5 @@
 const getData = (onSuccess, onFail) => {
-  fetch("https://23.javascript.pages.academy/keksobooking/data")
+  fetch('https://23.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
@@ -10,8 +10,8 @@ const getData = (onSuccess, onFail) => {
 };
 
 const sendFormData = (onSuccess, onFail, body) => {
-  fetch("https://23.javascript.pages.academy/keksobooking", {
-    method: "POST",
+  fetch('https://23.javascript.pages.academy/keksobooking', {
+    method: 'POST',
     body,
   })
     .then((response) => {
