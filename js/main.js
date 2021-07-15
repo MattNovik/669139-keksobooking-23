@@ -1,9 +1,15 @@
-import { createData } from "./data.js";
-import { renderCard, renderDataCards } from "./template.js";
-import "./form.js";
-import "./map.js";
+import { renderPopups, createMap } from "./map.js";
+import { setUserFormSubmit , lockForm} from "./form.js";
+import { createSuccessSubmit,renderErrorMessage, createErrorMessageGet } from "./messages.js";
+import { getData } from "./api.js";
+import { setFilterChange, filterForm } from "./filter.js";
 
-const map = document.querySelector("#map-canvas");
-const popupArray = createData();
+getData((data) => {
+  lockForm();
+  createMap();
+  renderPopups(data.slice(0,10));
+  setFilterChange(data);
+}, createErrorMessageGet);
 
+setUserFormSubmit(createSuccessSubmit, renderErrorMessage);
 

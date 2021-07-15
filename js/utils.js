@@ -18,9 +18,32 @@ const getRandomArrayLength = (elements) =>
 const getRandomArrayElement = (elements) =>
   elements[getRange(0, elements.length - 1)];
 
+const isEscEvent = (evt) => {
+  return evt.key === "Escape" || evt.key === "Esc";
+};
+
+const isEnterEvent = (evt) => {
+  return evt.key === "Enter";
+};
+
+const debounce = (func, time) => {
+  let timer;
+  return function debounced() {
+    clearTimeout(timer);
+    let args = arguments;
+    let that = this;
+    timer = setTimeout(function callOriginalFn() {
+      func.apply(that, args);
+    }, time);
+  };
+};
+
 export {
   getRange,
   getRangeDecimal,
   getRandomArrayLength,
   getRandomArrayElement,
+  isEscEvent,
+  isEnterEvent,
+  debounce,
 };

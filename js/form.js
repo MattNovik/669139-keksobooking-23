@@ -1,13 +1,16 @@
+import { sendFormData } from "./api.js";
+import { filterForm } from "./filter.js";
+
 const MIN_NAME_LENGTH = 30;
 const MAX_NAME_LENGTH = 100;
 
-const valueRooms = {
+const VALUE_ROOMS = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
   100: [0],
 };
-const houseTypePrice = {
+const HOUSE_TYPE_PRICE = {
   bungalow: 0,
   flat: 1000,
   hotel: 3000,
@@ -29,13 +32,12 @@ const filterFormFieldsets = filtersForm.querySelectorAll("fieldset");
 const formTimein = form.querySelector("#timein");
 const formTimeout = form.querySelector("#timeout");
 const formAddress = form.querySelector("#address");
+const formReset = form.querySelector(".ad-form__reset");
 
-const addAdressToForm = (marker) => {
-  const latLng = [];
-  const markObj = marker.getLatLng();
-  latLng.push(markObj.lat.toFixed(5));
-  latLng.push(markObj.lng.toFixed(5));
-  return latLng.join(",");
+const addAdressToForm = (lat, lng) => {
+  const markLat = lat.toFixed(5);
+  const markLong = lng.toFixed(5);
+  formAddress.value = markLat + " ," + markLong;
 };
 
 const lockForm = function () {
@@ -60,14 +62,12 @@ const unlockForm = function () {
   });
 };
 
-lockForm();
-
 formRooms.addEventListener("input", (evt) => {
   const peopleAmount = evt.target.value;
   formGuestOptions.forEach((option) => {
     option.disabled = true;
   });
-  valueRooms[peopleAmount].forEach((seatsAmount) => {
+  VALUE_ROOMS[peopleAmount].forEach((seatsAmount) => {
     formGuestOptions.forEach((option) => {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;
@@ -76,49 +76,6 @@ formRooms.addEventListener("input", (evt) => {
     });
   });
 });
-
-/*const valueRooms = formRooms.value;
-  const valueGuest = formGuest.value;
-
-  if (valueRooms == 1 && valueGuest != 1) {
-    formGuest.setCustomValidity("only for 1 guest");
-  } else if (valueRooms == 2 && valueGuest != 2 && valueGuest != 1) {
-    formGuest.setCustomValidity("only for 1 or 2 guests");
-  } else if (valueRooms == 3 && valueGuest == 0) {
-    formGuest.setCustomValidity("only for 1, 2 or 3 guests");
-  } else if (valueRooms == 100 && valueGuest != 0) {
-    formGuest.setCustomValidity("not for guests");
-  } else {
-    formGuest.setCustomValidity("");
-  }
-
-  formGuest.reportValidity();*/
-
-/*formGuest.addEventListener("input", () => {
-  const valueRooms = formRooms.value;
-  const valueGuest = formGuest.value;
-
-  if (
-    valueGuest == 1 &&
-    valueRooms != 1 &&
-    valueRooms != 2 &&
-    valueRooms != 3
-  ) {
-    formGuest.setCustomValidity("not for guests");
-  } else if (valueGuest == 2 && valueRooms == 1) {
-    formGuest.setCustomValidity("only for 1 guest");
-  } else if (valueGuest == 2 && valueRooms == 100) {
-    formGuest.setCustomValidity("not for guest");
-  } else if (valueGuest == 3 && (valueRooms == 100 || valueRooms != 3)) {
-    formGuest.setCustomValidity("only for 1, 2 or 3 guests");
-  } else if (valueGuest == 0 && valueRooms != 100) {
-    formGuest.setCustomValidity("need more rooms");
-  } else {
-    formGuest.setCustomValidity("");
-  }
-
-  formGuest.reportValidity();
-});*/
 
 formTitle.addEventListener("input", () => {
   const valueLength = formTitle.value.length;
@@ -137,24 +94,9 @@ formTitle.addEventListener("input", () => {
 
 formHouseType.addEventListener("input", (evt) => {
   const valueHouseType = evt.target.value;
-  formPrice.setAttribute("min", houseTypePrice[valueHouseType]);
-  formPrice.setAttribute("placeholder", houseTypePrice[valueHouseType]);
+  formPrice.setAttribute("min", HOUSE_TYPE_PRICE[valueHouseType]);
+  formPrice.setAttribute("placeholder", HOUSE_TYPE_PRICE[valueHouseType]);
 });
-
-/*formPrice.addEventListener("input", () => {
-  const valuePrice = formPrice.value;
-  const valueAttrPriceMin = formPrice.getAttribute("min");
-
-  if (valuePrice < formPrice.min) {
-    formPrice.setCustomValidity(
-      `Price need to be more than ${valueAttrPriceMin}`
-    );
-  } else {
-    formPrice.setCustomValidity("");
-  }
-
-  formPrice.reportValidity(); //проверяет цену при вводе, а не только при отправке
-});*/
 
 formTimein.addEventListener("input", (evt) => {
   formTimein.value = evt.target.value;
@@ -166,8 +108,20 @@ formTimeout.addEventListener("input", (evt) => {
   formTimeout.value = evt.target.value;
 });
 
-/*formSend.addEventListener("submit", function (evt) {
+formReset.addEventListener("click", () => {
+  filterForm.reset();
+});
 
-});*/
+const setUserFormSubmit = (onSuccess, onFail) => {
+  form.addEventListener("submit", (evt) => {
+    evt.preventDefault();
 
-export { unlockForm, formAddress, addAdressToForm };
+    sendFormData(
+      () => onSuccess(),
+      () => onFail(),
+      new FormData(evt.target)
+    );
+  });
+};
+
+export { unlockForm, lockForm, addAdressToForm, setUserFormSubmit, form };

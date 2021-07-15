@@ -12,7 +12,7 @@ const createPopup = (opt) => {
   popupElement.querySelector(".popup__text--address").textContent =
     opt.offer.adress;
   popupElement.querySelector(".popup__text--price").textContent =
-    opt.offer.price;
+    opt.offer.price + " Р/ночь";
   popupElement.querySelector(".popup__type").textContent = opt.offer.type;
   popupElement.querySelector(".popup__text--capacity").textContent =
     opt.offer.rooms + " комнаты для " + opt.offer.guests + " гостей";
@@ -21,8 +21,16 @@ const createPopup = (opt) => {
   popupElement.querySelector(".popup__description").textContent =
     opt.offer.description;
 
-  renderPhotosList(popupPhotoList, opt.offer.photos);
-  renderFearutesList(popupFeaturesList, opt.offer.features);
+  if (opt.offer.photos) {
+    renderPhotosList(popupPhotoList, opt.offer.photos);
+  } else {
+    popupPhotoList.innerHTML = "";
+  }
+  if (opt.offer.features) {
+    renderFearutesList(popupFeaturesList, opt.offer.features);
+  } else {
+    popupFeaturesList.innerHTML = "";
+  }
 
   return popupElement;
 };

@@ -1,4 +1,4 @@
-import { OFFER_TYPES } from "./data.js";
+/*import { OFFER_TYPES } from "./data.js";*/
 
 const renderPhotosList = (placeInsert, data) => {
   const cloneImg = placeInsert.children[0].cloneNode(true); // clone element before deleted
@@ -21,7 +21,7 @@ const renderFearutesList = (placeInsert, data) => {
   });
 };
 
-const renderCard = function (advt, placeInsert) {
+/*const renderCard = function (advt, placeInsert) {
   const cardTemplate = document.querySelector("#card").content;
   const similarPopup = cardTemplate.cloneNode(true);
   const clonedElem = similarPopup.cloneNode(true);
@@ -59,6 +59,25 @@ const renderDataCards = function (data, placeInsert) {
   data.forEach((advt) => {
     renderCard(advt, placeInsert);
   });
+};*/
+
+const createSuccessMessage = function (placeInsert) {
+  const successMessageTemplate = document.querySelector("#success").content;
+  const similarMessage = successMessageTemplate.cloneNode(true);
+  placeInsert.appendChild(similarMessage);
 };
 
-export { renderCard, renderDataCards, renderFearutesList, renderPhotosList };
+const createErrorMessage = function (placeInsert) {
+  const errorMessageTemplate = document.querySelector("#error").content;
+  const similarMessage = errorMessageTemplate.cloneNode(true);
+  placeInsert.appendChild(similarMessage);
+};
+
+export {
+  /*renderCard,
+  renderDataCards,*/
+  renderFearutesList,
+  renderPhotosList,
+  createSuccessMessage,
+  createErrorMessage,
+};
