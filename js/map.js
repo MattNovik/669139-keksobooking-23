@@ -39,8 +39,7 @@ const createMarker = () => {
 const marker = createMarker();
 
 const createMap = () => {
-  map
-    .on("load", uploadedMap)
+  map.on("load", uploadedMap)
     .setView(
       {
         lat: 35.6982,
@@ -56,7 +55,6 @@ const createMap = () => {
 };
 
 marker.addTo(map);
-
 marker.on("moveend", movePin);
 
 const markerGroup = L.layerGroup().addTo(map);

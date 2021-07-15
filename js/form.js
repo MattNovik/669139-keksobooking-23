@@ -110,8 +110,12 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
 
-    sendFormData(() => onSuccess(),() => onFail(),new FormData(evt.target));
+    sendFormData(
+      () => onSuccess(),
+      () => onFail(),
+      new FormData(evt.target)
+    );
   });
 };
 
-export { unlockForm, lockForm, addAdressToForm, setUserFormSubmit, form};
+export { unlockForm, lockForm, addAdressToForm, setUserFormSubmit, form };
