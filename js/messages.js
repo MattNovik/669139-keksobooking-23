@@ -1,6 +1,7 @@
 import { createSuccessMessage, createErrorMessage } from "./template.js";
 import { isEscEvent } from "./utils.js";
 import { form } from "./form.js";
+import { filterForm } from "./filter.js";
 
 const onPopupEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
@@ -26,6 +27,7 @@ const createSuccessSubmit = function () {
   successMessage.addEventListener("click", closeMessage);
   document.addEventListener("keydown", onPopupEscKeydown);
   form.reset();
+  filterForm.reset();
 };
 
 const renderErrorMessage = function () {
@@ -34,6 +36,7 @@ const renderErrorMessage = function () {
   errorMessage.addEventListener("click", closeMessage);
   document.addEventListener("keydown", onPopupEscKeydown);
   form.reset();
+  filterForm.reset();
 };
 
 const createErrorMessageGet = function () {

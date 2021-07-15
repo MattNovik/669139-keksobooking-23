@@ -1,4 +1,5 @@
 import { sendFormData } from "./api.js";
+import { filterForm } from "./filter.js";
 
 const MIN_NAME_LENGTH = 30;
 const MAX_NAME_LENGTH = 100;
@@ -31,6 +32,7 @@ const filterFormFieldsets = filtersForm.querySelectorAll("fieldset");
 const formTimein = form.querySelector("#timein");
 const formTimeout = form.querySelector("#timeout");
 const formAddress = form.querySelector("#address");
+const formReset = form.querySelector(".ad-form__reset");
 
 const addAdressToForm = (lat, lng) => {
   const markLat = lat.toFixed(5);
@@ -104,6 +106,10 @@ formTimein.addEventListener("input", (evt) => {
 formTimeout.addEventListener("input", (evt) => {
   formTimein.value = evt.target.value;
   formTimeout.value = evt.target.value;
+});
+
+formReset.addEventListener("click", () => {
+  filterForm.reset();
 });
 
 const setUserFormSubmit = (onSuccess, onFail) => {
