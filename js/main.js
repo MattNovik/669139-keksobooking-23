@@ -1,8 +1,8 @@
-import { renderPopups, createMap } from "./map.js";
-import { setUserFormSubmit , lockForm} from "./form.js";
-import { createSuccessSubmit,renderErrorMessage, createErrorMessageGet } from "./messages.js";
-import { getData } from "./api.js";
-import { setFilterChange, filterForm } from "./filter.js";
+import { renderPopups, createMap } from './map.js';
+import { setUserFormSubmit , lockForm} from './form.js';
+import { createSuccessSubmit,renderErrorMessage, createErrorMessageGet } from './messages.js';
+import { getData } from './api.js';
+import { setFilterChange } from './filter.js';
 
 getData((data) => {
   lockForm();
