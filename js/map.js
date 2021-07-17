@@ -57,7 +57,7 @@ marker.addTo(map);
 marker.on('moveend', movePin);
 
 const markerGroup = L.layerGroup().addTo(map);
-const renderPopups = function(advt) {
+const renderPopups = (advt) => {
   advt.forEach((opt) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',

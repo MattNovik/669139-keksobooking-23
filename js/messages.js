@@ -21,7 +21,7 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-const createSuccessSubmit = function () {
+const createSuccessSubmit = () => {
   createSuccessMessage(document.body);
   const successMessage = document.querySelector('.success');
   successMessage.addEventListener('click', closeMessage);
@@ -30,7 +30,7 @@ const createSuccessSubmit = function () {
   filterForm.reset();
 };
 
-const renderErrorMessage = function () {
+const renderErrorMessage = () => {
   createErrorMessage(document.body);
   const errorMessage = document.querySelector('.error');
   errorMessage.addEventListener('click', closeMessage);
@@ -39,7 +39,7 @@ const renderErrorMessage = function () {
   filterForm.reset();
 };
 
-const createErrorMessageGet = function () {
+const createErrorMessageGet = () => {
   const message = document.createElement('div');
   message.style.zIndex = 100;
   message.style.position = 'absolute';

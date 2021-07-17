@@ -61,13 +61,13 @@ const renderDataCards = function (data, placeInsert) {
   });
 };*/
 
-const createSuccessMessage = function (placeInsert) {
+const createSuccessMessage = (placeInsert) => {
   const successMessageTemplate = document.querySelector('#success').content;
   const similarMessage = successMessageTemplate.cloneNode(true);
   placeInsert.appendChild(similarMessage);
 };
 
-const createErrorMessage = function (placeInsert) {
+const createErrorMessage = (placeInsert) => {
   const errorMessageTemplate = document.querySelector('#error').content;
   const similarMessage = errorMessageTemplate.cloneNode(true);
   placeInsert.appendChild(similarMessage);

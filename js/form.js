@@ -38,7 +38,7 @@ const addAdressToForm = (lat, lng) => {
   formAddress.value = `${markLat}, ${markLong}`;
 };
 
-const lockForm = function () {
+const lockForm = () => {
   form.classList.add('ad-form--disabled');
   filterForm.classList.add('ad-form--disabled');
   formFieldsets.forEach((field) => {
@@ -49,7 +49,7 @@ const lockForm = function () {
   });
 };
 
-const unlockForm = function () {
+const unlockForm = () => {
   form.classList.remove('ad-form--disabled');
   formFieldsets.forEach((field) => {
     field.removeAttribute('disabled', 'disabled');
