@@ -21,7 +21,7 @@ const renderFearutesList = (placeInsert, data) => {
   });
 };
 
-/*const renderCard = function (advt, placeInsert) {
+/*const renderCard = function (advt, placeInsert) ;{
   const cardTemplate = document.querySelector('#card').content;
   const similarPopup = cardTemplate.cloneNode(true);
   const clonedElem = similarPopup.cloneNode(true);
