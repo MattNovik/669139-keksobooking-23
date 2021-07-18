@@ -4,13 +4,13 @@ import { filterForm } from './filter.js';
 const MIN_NAME_LENGTH = 30;
 const MAX_NAME_LENGTH = 100;
 
-const VALUE_ROOMS = {
+const valueRooms = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
   100: [0],
 };
-const HOUSE_TYPE_PRICE = {
+const houseTypePrice = {
   bungalow: 0,
   flat: 1000,
   hotel: 3000,
@@ -38,7 +38,7 @@ const addAdressToForm = (lat, lng) => {
   formAddress.value = `${markLat}, ${markLong}`;
 };
 
-const lockForm = function () {
+const lockForm = () => {
   form.classList.add('ad-form--disabled');
   filterForm.classList.add('ad-form--disabled');
   formFieldsets.forEach((field) => {
@@ -49,7 +49,7 @@ const lockForm = function () {
   });
 };
 
-const unlockForm = function () {
+const unlockForm = () => {
   form.classList.remove('ad-form--disabled');
   formFieldsets.forEach((field) => {
     field.removeAttribute('disabled', 'disabled');
@@ -60,12 +60,22 @@ const unlockForm = function () {
   });
 };
 
+const disableFormGuestStart = () => {
+  formGuestOptions.forEach((option) => {
+    if (Number(option.value) !== 1) {
+      option.disabled = true;
+    } else {
+      option.selected = true;
+    }
+  });
+};
+
 formRooms.addEventListener('input', (evt) => {
   const peopleAmount = evt.target.value;
   formGuestOptions.forEach((option) => {
     option.disabled = true;
   });
-  VALUE_ROOMS[peopleAmount].forEach((seatsAmount) => {
+  valueRooms[peopleAmount].forEach((seatsAmount) => {
     formGuestOptions.forEach((option) => {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;
@@ -92,8 +102,8 @@ formTitle.addEventListener('input', () => {
 
 formHouseType.addEventListener('input', (evt) => {
   const valueHouseType = evt.target.value;
-  formPrice.setAttribute('min', HOUSE_TYPE_PRICE[valueHouseType]);
-  formPrice.setAttribute('placeholder', HOUSE_TYPE_PRICE[valueHouseType]);
+  formPrice.setAttribute('min', houseTypePrice[valueHouseType]);
+  formPrice.setAttribute('placeholder', houseTypePrice[valueHouseType]);
 });
 
 formTimein.addEventListener('input', (evt) => {
@@ -113,7 +123,6 @@ formReset.addEventListener('click', () => {
 const setUserFormSubmit = (onSuccess, onFail) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     sendFormData(
       () => onSuccess(),
       () => onFail(),
@@ -122,4 +131,4 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   });
 };
 
-export { unlockForm, lockForm, addAdressToForm, setUserFormSubmit, form };
+export { unlockForm, lockForm, addAdressToForm, setUserFormSubmit, form, disableFormGuestStart };

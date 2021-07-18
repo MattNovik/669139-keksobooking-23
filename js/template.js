@@ -1,5 +1,3 @@
-/*import { OFFER_TYPES } from './data.js';*/
-
 const renderPhotosList = (placeInsert, data) => {
   const cloneImg = placeInsert.children[0].cloneNode(true); // clone element before deleted
   placeInsert.innerHTML = '';
@@ -21,46 +19,6 @@ const renderFearutesList = (placeInsert, data) => {
   });
 };
 
-/*const renderCard = function (advt, placeInsert) ;{
-  const cardTemplate = document.querySelector('#card').content;
-  const similarPopup = cardTemplate.cloneNode(true);
-  const clonedElem = similarPopup.cloneNode(true);
-  const listFeatures = clonedElem.querySelector('.popup__features');
-  const listPhotos = clonedElem.querySelector('.popup__photos');
-
-  clonedElem.querySelector('.popup__avatar').src = advt.author.avatar;
-  clonedElem.querySelector('.popup__title').textContent = advt.offer.title;
-  clonedElem.querySelector('.popup__text--address').textContent =
-    advt.offer.adress;
-  clonedElem.querySelector('.popup__text--price').textContent =
-    advt.offer.price + ' ₽/ночь';
-  clonedElem.querySelector('.popup__description').textContent =
-    advt.offer.description;
-
-  // create types of advert using object from data.js
-
-  clonedElem.querySelector('.popup__type').textContent =
-    OFFER_TYPES[advt.offer.type];
-
-  // dont make check for quantity of guest and rooms
-
-  clonedElem.querySelector('.popup__text--capacity').textContent =
-    advt.offer.rooms + ' комнаты для ' + advt.offer.guests + ' гостей';
-  clonedElem.querySelector('.popup__text--time').textContent =
-    'Заезд после ' + advt.offer.checkin + ', выезд до ' + advt.offer.checkout;
-
-  renderFearutesList(listFeatures, advt.offer.features);
-  renderPhotosList(listPhotos, advt.offer.photos);
-
-  placeInsert.appendChild(clonedElem);
-};
-
-const renderDataCards = function (data, placeInsert) {
-  data.forEach((advt) => {
-    renderCard(advt, placeInsert);
-  });
-};*/
-
 const createSuccessMessage = function (placeInsert) {
   const successMessageTemplate = document.querySelector('#success').content;
   const similarMessage = successMessageTemplate.cloneNode(true);
@@ -74,8 +32,6 @@ const createErrorMessage = function (placeInsert) {
 };
 
 export {
-  /*renderCard,
-  renderDataCards,*/
   renderFearutesList,
   renderPhotosList,
   createSuccessMessage,

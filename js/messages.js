@@ -1,7 +1,8 @@
 import { createSuccessMessage, createErrorMessage } from './template.js';
 import { isEscEvent } from './utils.js';
-import { form } from './form.js';
+import { form, addAdressToForm } from './form.js';
 import { filterForm } from './filter.js';
+import { setMarkerLatLng } from './map.js';
 
 const closeMessage = () => {
   const successMessage = document.querySelector('.success');
@@ -21,25 +22,29 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-const createSuccessSubmit = function () {
+const createSuccessSubmit = () => {
   createSuccessMessage(document.body);
   const successMessage = document.querySelector('.success');
   successMessage.addEventListener('click', closeMessage);
   document.addEventListener('keydown', onPopupEscKeydown);
   form.reset();
   filterForm.reset();
+  addAdressToForm(35.698, 139.7613);
+  setMarkerLatLng();
 };
 
-const renderErrorMessage = function () {
+const renderErrorMessage = () => {
   createErrorMessage(document.body);
   const errorMessage = document.querySelector('.error');
   errorMessage.addEventListener('click', closeMessage);
   document.addEventListener('keydown', onPopupEscKeydown);
   form.reset();
   filterForm.reset();
+  addAdressToForm(35.698, 139.7613);
+  setMarkerLatLng();
 };
 
-const createErrorMessageGet = function () {
+const createErrorMessageGet = () => {
   const message = document.createElement('div');
   message.style.zIndex = 100;
   message.style.position = 'absolute';

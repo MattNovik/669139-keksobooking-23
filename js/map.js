@@ -81,4 +81,8 @@ const renderPopups = function(advt) {
   });
 };
 
-export { renderPopups, markerGroup, createMap };
+const setMarkerLatLng = () => {
+  marker.setLatLng(L.latLng(35.6982,139.7613));
+};
+
+export { renderPopups, markerGroup, createMap, setMarkerLatLng };
