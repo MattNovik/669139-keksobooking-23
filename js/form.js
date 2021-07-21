@@ -1,6 +1,7 @@
 import { sendFormData } from './api.js';
 import { filterForm } from './filter.js';
 import { setMarkerLatLng } from './map.js';
+import { clearImgSrc } from './photo.js';
 
 const MIN_NAME_LENGTH = 30;
 const MAX_NAME_LENGTH = 100;
@@ -123,6 +124,7 @@ formReset.addEventListener('click', (evt) => {
   form.reset();
   addAdressToForm(35.6982,139.7613);
   setMarkerLatLng();
+  clearImgSrc();
 });
 
 const setUserFormSubmit = (onSuccess, onFail) => {

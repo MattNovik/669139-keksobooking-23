@@ -3,6 +3,7 @@ import { isEscEvent } from './utils.js';
 import { form, addAdressToForm } from './form.js';
 import { filterForm } from './filter.js';
 import { setMarkerLatLng } from './map.js';
+import { clearImgSrc } from './photo.js';
 
 const closeMessage = () => {
   const successMessage = document.querySelector('.success');
@@ -31,6 +32,7 @@ const createSuccessSubmit = () => {
   filterForm.reset();
   addAdressToForm(35.698, 139.7613);
   setMarkerLatLng();
+  clearImgSrc();
 };
 
 const renderErrorMessage = () => {
@@ -42,6 +44,7 @@ const renderErrorMessage = () => {
   filterForm.reset();
   addAdressToForm(35.698, 139.7613);
   setMarkerLatLng();
+  clearTimeout();
 };
 
 const createErrorMessageGet = () => {
